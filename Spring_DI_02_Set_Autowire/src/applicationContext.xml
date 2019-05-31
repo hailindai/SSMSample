@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+	
+	<!-- default-autowire="byName"  可配置全局自动装配-->
+
+	<!-- 
+		autowire设定自动装配：
+		byName:根据javabean中需要注入的属性的名字 ，在spring容器中找对应id的<bean>将该<bean>的对象复制给 当前的属性 
+		byType:根据javabean中需要注入的属性的类型，在spring容器中找对应class类型的<bean>将该<bean>的对象复制给 当前的属性
+		**byType方式 根据类型进行匹配，可能匹配到多个<bean>,此时会抛出异常。而byName是通过id来寻找<bean>，id没有重复，不会有这方面的问题，所以推荐使用byName方式
+    -->
+	<bean id="hero" class="com.dreamguard.domain.Hero" autowire="byName">
+		<property name="id" value="1"></property>
+		<property name="name" value="吕布"></property>
+		<property name="jobs">
+			<list>
+				<value>上单</value>
+				<value>坦克</value>
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<value>沈腾</value>
+				<value>贾玲</value>
+			</set>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="1" value="蝙蝠侠"></entry>
+				<entry key="2" value="雷神"></entry>
+				<entry key="3" value="美国队长"></entry>
+				<entry key="4" value="绿巨人"></entry>
+			</map>
+		</property>
+		<property name="prop">
+			<props>
+				<prop key="1">1</prop>
+				<prop key="2">2</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="dog" class="com.dreamguard.domain.Dog">
+		<property name="name" value="旺财"></property>
+	</bean>
+	<bean id="cat" class="com.dreamguard.domain.Cat">
+		<property name="name" value="hello kitty"></property>
+	</bean>
+</beans>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+	
+	<bean id="hero" class="com.dreamguard.domain.Hero">
+
+		<constructor-arg index="0" value="1" ></constructor-arg>
+		<constructor-arg index="1" value="亚瑟" ></constructor-arg>
+		<constructor-arg index="2">
+			<list>
+				<value>上单</value>
+				<value>辅助</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="3" ref="dog" ></constructor-arg>
+		<constructor-arg index="4" ref="cat" ></constructor-arg>
+		
+	</bean>
+	
+	<bean id="dog" class="com.dreamguard.domain.Dog">
+		<property name="name" value="旺财"></property>
+	</bean>
+	<bean id="cat" class="com.dreamguard.domain.Cat">
+		<property name="name" value="hello kitty"></property>
+	</bean>
+</beans>
