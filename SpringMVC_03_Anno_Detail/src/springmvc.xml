@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-3.2.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd ">
+
+	<!-- 开启包扫描 -->
+	<context:component-scan base-package="com.dreamguard.controller"></context:component-scan>
+	<!-- 开启springmvc注解控制 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 配置文件上传处理器bean -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1024"></property>
+		<!-- <property name="maxInMemorySize"></property> <property name="uploadTempDir"></property> 
+			<property name="defaultEncoding"></property> -->
+	</bean>
+
+	<!-- 配置全局错误提示 一个异常，一个页面？？-->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.NullPointerException" >null_err</prop>
+				<prop key="java.io.IOException">io_err</prop>
+				<prop key="java.lang.Throwable">g_err</prop>
+				<prop key="java.lang.ArithmeticException">first</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
