@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 声明别名 -->
+	<typeAliases>
+		<typeAlias type="com.dreamguard.domain.User" alias="Alias_User"/>
+	</typeAliases>
+<!-- 配置数据源 -->
+	<environments default="mysql">
+		<environment id="mysql">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/mybatisdb?characterEncoding=utf-8" />
+				<property name="username" value="root" />
+				<property name="password" value="123456" />
+			</dataSource>
+		</environment>
+		
+<!-- 		<environment id="oracle">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
+				<property name="username" value="ht1602" />
+				<property name="password" value="htdb" />
+			</dataSource>
+		</environment> -->
+	</environments>
+	<!-- 二级缓存步骤一 -->
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+	
+	<!-- 映射文件 -->
+	<mappers>
+		<mapper resource="userMapper.xml" />
+	</mappers>
+
+</configuration>

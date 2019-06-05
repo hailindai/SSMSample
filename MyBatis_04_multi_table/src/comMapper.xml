@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamguard.mapper.comMapper">
+
+	<resultMap type="com.dreamguard.domain.Grade" id="GradeRM">
+		<id column="gid" property="id"/>
+		<result column="gname" property="name"/>
+		<association property="room" javaType="com.dreamguard.domain.Room">
+				<id column="rid" property="id"/>
+				<result column="rname" property="name"/>
+		</association>
+	</resultMap>
+	<select id="queryO2O" resultMap="GradeRM">
+		select grade.id as gid,grade.name as gname,room.id as rid,room.name as rname 
+		from grade inner join room
+		on grade.rid=room.id
+	</select>
+	
+	<resultMap type="com.dreamguard.domain.Dept" id="DeptRM">
+		<id column="did" property="id"/>
+		<result column="dname" property="name"/>
+		<collection property="list" ofType="com.dreamguard.domain.Emp">
+			<id column="eid" property="id"/>
+			<result column="ename" property="name"/>
+		</collection>
+	</resultMap>
+	<select id="queryO2M" resultMap="DeptRM">
+		select dept.id as did,dept.name as dname,emp.id as eid,emp.name as ename
+		from dept left join emp
+		on dept.id = emp.deptid
+	</select>
+	
+	<resultMap type="com.dreamguard.domain.Emp" id="EmpRM">
+		<id column="eid" property="id"/>
+		<result column="ename" property="name"/>
+		<association property="dept" javaType="com.dreamguard.domain.Dept">
+			<id column="did" property="id"/>
+			<result column="dname" property="name"/>
+		</association>
+	</resultMap>
+	<select id="queryM2O" resultMap="EmpRM">
+		select dept.id as did,dept.name as dname,emp.id as eid,emp.name as ename
+		from emp left join dept
+		on dept.id = emp.deptid
+	</select>
+	
+	<resultMap type="com.dreamguard.domain.Teacher" id="TeacherRM">
+		<id column="tid" property="id"/>
+		<result column="tname" property="name"/>
+		<collection property="list" ofType="com.dreamguard.domain.Stu">
+			<id column="sid" property="id"/>
+			<result column="sname" property="name"/>
+		</collection>
+	</resultMap>
+	<select id="queryM2M" resultMap="TeacherRM">
+		select teacher.id as tid,teacher.name as tname,stu.id as sid,stu.name as sname 
+		from teacher inner join stu_teacher
+		on teacher.id=stu_teacher.tid
+		inner join stu
+		on stu.id=stu_teacher.sid
+	</select>
+</mapper>

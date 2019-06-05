@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamguard.mapper.UserMapper">
+	<!-- map传值 -->
+	<select id="query01" resultType="com.dreamguard.domain.User">
+		select * from user where age between #{min} and #{max}
+	</select>
+	
+	<!-- 对象传值 -->
+	<insert id="insert01">
+		insert into user values(null,#{name},#{age})
+	</insert>
+	
+	<!-- 单值传值 -->
+	<select id="query02" resultType="com.dreamguard.domain.User">
+		select * from user where id=#{id}
+	</select>
+	
+	<!-- #和$的区别 -->
+	<!-- #拼接时，自动拼接 '' 号 -->
+	<!-- $拼接时，不会自动拼接 '' 号 ，一般用列名 ,只能传递引用类型map,bean-->
+	<select id="query03" resultType="com.dreamguard.domain.User">
+		<!-- select * from user where name=#{name} -->
+		select * from user where name='${name}'
+	</select>
+	<select id="query04" resultType="com.dreamguard.domain.User">
+		select * from user order by ${age}
+	</select>
+</mapper>

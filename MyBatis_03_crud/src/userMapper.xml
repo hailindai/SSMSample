@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dreamguard.mapper.UserMapper">
+
+	<update id="update01">
+		update user
+		<set>
+			<if test="name!=null">name=#{name},</if>
+			<if test="age!=0">age=#{age},</if>
+		</set>
+		<where>
+			<if test="id!=0">id=#{id}</if>
+		</where>
+	</update>
+	
+	<select id="select01" resultType="com.dreamguard.domain.User">
+		select * from user
+		<where>
+			<if test="id!=0">id=#{id}</if>
+			<if test="name!=null">and name=#{name}</if>
+			<if test="age!=0">and age=#{age}</if>
+		</where>
+	</select>
+	
+	<insert id="insert01">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			<if test="name!=null">name,</if>
+			<if test="age!=0">age,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			null,
+			<if test="name!=null">#{name},</if>
+			<if test="age!=0">#{age},</if>
+		</trim>
+	</insert>
+	
+	<delete id="delete01">
+		delete from user
+		<where>
+			<if test="id!=0">id=#{id}</if>
+			<if test="name != null">and name=#{name}</if>
+			<if test="age!=0">age age=#{age}</if>
+		</where>
+	</delete>
+	
+	
+	<resultMap type="com.dreamguard.domain.User" id="userRM">
+		<id column="uid" property="id"/>
+		<result column="uname" property="name"/>
+	</resultMap>
+	<select id="select02" resultMap="userRM">
+		select id as uid,name as uname,age from user
+	</select>
+</mapper>
